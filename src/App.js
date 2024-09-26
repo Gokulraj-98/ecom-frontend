@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import ProductList from './components/ProductList';
 
-function App() {
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(''); // State for selected category
+  const [cart, setCart] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gray-100 min-h-screen">
+      {/* Pass selectedCategory and setSelectedCategory to Header */}
+      <Header
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        cartCount={cart.length}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+
+      {/* Pass selectedCategory to ProductList */}
+      <ProductList
+        searchQuery={searchQuery}
+        selectedCategory={selectedCategory}  // Send selectedCategory to ProductList
+        cart={cart}
+        setCart={setCart}
+      />
     </div>
   );
-}
+};
 
 export default App;
